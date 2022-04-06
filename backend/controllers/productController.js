@@ -8,9 +8,12 @@ const ApiFeatures = require("../utils/apiFeatures");
 //get all products
 
 exports.getAllProducts = catchAsyncErrors(async (req, res) => {
+  const resultsPerPage = 5;
+
   const apiFeature = new ApiFeatures(Product.find(), req.query)
     .search()
-    .filter();
+    .filter()
+    .pagination(resultsPerPage);
 
   const products = await apiFeature.query;
 
