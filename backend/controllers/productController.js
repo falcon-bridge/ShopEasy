@@ -8,6 +8,8 @@ const ApiFeatures = require("../utils/apiFeatures");
 //get all products
 
 exports.getAllProducts = catchAsyncErrors(async (req, res) => {
+  const productCount = await Product.countDocuments();
+
   const resultsPerPage = 5;
 
   const apiFeature = new ApiFeatures(Product.find(), req.query)
@@ -19,6 +21,7 @@ exports.getAllProducts = catchAsyncErrors(async (req, res) => {
 
   res.status(200).json({
     success: true,
+    productCount,
     products,
   });
 });
